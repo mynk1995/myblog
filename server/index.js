@@ -3,13 +3,27 @@ import path from 'path';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import bodyParser from 'body-parser';
+import mongodb from 'mongodb';
+
+
 import webpackConfig from '../webpack.config.dev.js';
 import route from './routes/index.js';
-
+import dbConfig from '../configurations/config.js';
 const router = express.Router();
 let app = express();
 const compiler = webpack(webpackConfig);
 
+let MongoClient = mongodb.MongoClient;
+
+
+
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 
 for (var x in route ){

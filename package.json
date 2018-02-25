@@ -16,7 +16,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongodb": "^3.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
