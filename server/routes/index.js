@@ -1,3 +1,1 @@
-import login from './login.js';
-import signup from './signup.js';
-module.exports = ['./login.js','./signup.js'];
+module.exports = ['./login.js','./signup.js','./getPosts.js','./getPostbyId.js'];
