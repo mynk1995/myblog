@@ -1,8 +1,8 @@
 let obj ={
   "mongodb":{
-    "host":"192.168.0.3",
+    "host":"mongodb://localhost",
     "port":27017,
-    "db":"db"
+    "db":"config"
   }
 }
 

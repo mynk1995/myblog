@@ -5,7 +5,7 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import bodyParser from 'body-parser';
 import mongodb from 'mongodb';
-
+import config from '../configurations/config.js';
 
 import webpackConfig from '../webpack.config.dev.js';
 import route from './routes/index.js';
@@ -15,7 +15,7 @@ var MongoClient = require('mongodb').MongoClient;
 const router = express.Router();
 let app = express();
 const compiler = webpack(webpackConfig);
-MongoClient.connect("mongodb://localhost:27017/config", function (err, database) {
+MongoClient.connect(config.mongodb.host+':'+config.mongodb.port, function (err, database) {
      if(err) throw err;
      const mydb = database.db('config');
     app.set('db',mydb);

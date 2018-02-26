@@ -1,1 +1,1 @@
-module.exports = ['./login.js','./signup.js','./getPosts.js','./getPostbyId.js','./addPost.js'];
+module.exports = ['./login.js','./signup.js','./getPostById.js','./getPosts.js','./addPost.js'];
