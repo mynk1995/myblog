@@ -15,6 +15,9 @@ var MongoClient = require('mongodb').MongoClient;
 const router = express.Router();
 let app = express();
 const compiler = webpack(webpackConfig);
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 MongoClient.connect(config.mongodb.host+':'+config.mongodb.port, function (err, database) {
      if(err) throw err;
      const mydb = database.db('config');
