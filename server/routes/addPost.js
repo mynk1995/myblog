@@ -10,10 +10,10 @@ let validateData = (post) =>{
 }
 
 const addPost = router.post('/post',function(request,response){
-  //let postData = request.body.postData;
+  let postData = request.body.postData;
   const db = request.app.locals.settings.db;
-  if(true) {
-    var myobj = { name: "Company Inc", address: "Highway 37" };
+  if(validateData(postData)) {
+    var myobj = postData;
     db.collection("posts").insertOne(myobj, function(err, res) {
       if (err) return response.json({status:404, error:err});
       else {
