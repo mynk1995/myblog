@@ -9,7 +9,8 @@
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
     "buildDev": "webpack --config webpack.config.dev.js",
-    "start": "nodemon --watch server  --exec babel-node  server/index.js",
+    "start-debug": "nodemon --watch server  --exec babel-node  --inspect-brk server/index.js",
+    "start": "nodemon --watch server  --exec babel-node   server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
