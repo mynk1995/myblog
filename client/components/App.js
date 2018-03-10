@@ -1,16 +1,15 @@
 import React from 'react';
-import './App.css';
+import ShowAllPosts from './ShowAllPosts/ShowAllPosts';
 class App extends React.Component {
-  	data = () => {
-  		return (<div>Hi</div>);
-  	}
+
+
   render(){
 
 
     return (
-      <div className="bgColorGreen">Hi from rahul 
-      	<button>Fetch</button>
-      	{this.data()}
+      <div className="bgColorGreen">
+      <ShowAllPosts />
+      
       </div>
     );
   }
