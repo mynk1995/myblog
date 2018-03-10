@@ -10,17 +10,24 @@ let validateData = (post) =>{
 }
 
 const addPost = router.post('/post',function(request,response){
-  let postData = request.body.postData;
+  //let postData = request.body.postData;
+  const db = request.app.locals.settings.db;
+  if(true) {
+    var myobj = { name: "Company Inc", address: "Highway 37" };
+    db.collection("posts").insertOne(myobj, function(err, res) {
+      if (err) return response.json({status:404, error:err});
+      else {
+        response.send({
+          status:200,
+          added:'query executed',
+          result:res
+        });
+      }
+      console.log("1 document inserted");
+    });
 
-  if(validateData(postData)) {
 
-    let dbResponse = addData(postData);
 
-    response.send({
-  		status:200,
-      added:'query executed',
-      result:dbResponse 
-  	});
 
   } else {
     response.send({
