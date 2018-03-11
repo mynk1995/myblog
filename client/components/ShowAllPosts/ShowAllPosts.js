@@ -1,9 +1,47 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Card, Icon, Image  } from 'semantic-ui-react';
+import {Card, Icon, Image, Comment  } from 'semantic-ui-react';
 import getNewPostsAction from './action';
 import './index.css';
 class ShowAllPosts extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      comments:[]
+    };
+  }
+
+  showComments = (comments) => {
+    let picUrl = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpU2LYHH7U9wUw8zPftu73UaVs66SgFWQMlfZpmANJBmh2zjIX`;
+
+    return comments.map((comment,index)=>{
+      return <Comment>
+              <Comment.Avatar src={picUrl} />
+                <Comment.Content>
+                  <Comment.Author as='a'>{comment.userName}</Comment.Author>
+                  <Comment.Metadata>
+                    <div>2 Days Ago</div>
+                  </Comment.Metadata>
+                  <Comment.Text>{comment.comment}</Comment.Text>
+                  <Comment.Actions>
+                </Comment.Actions>
+              </Comment.Content>
+            </Comment>
+    });
+  }
+
+  showCommentsOfArticle = (id)=> {
+      const index = this.state.comments.findIndex(value=> value == id);
+      if (index >=0){
+        let arrayOfComments = this.state.comments;
+        arrayOfComments.splice(index,1);
+        this.setState({comments:arrayOfComments});
+      } else {
+        let arrayOfComments = this.state.comments;
+        arrayOfComments.push(id);
+        this.setState({comments:arrayOfComments});
+      }
+  }
 
   articleCard = (article) => {
     let commentsSize =0;
@@ -11,6 +49,8 @@ class ShowAllPosts extends React.Component {
       commentsSize = article.comments;
       commentsSize = commentsSize.length
     }
+
+
       return  <Card className="article">
 
         <Card.Content>
@@ -30,11 +70,15 @@ class ShowAllPosts extends React.Component {
         <Card.Content extra>
             <Icon name='like' />
             {article.likes} Likes
-          <a>
+          <a onClick={ () => {this.showCommentsOfArticle(article['_id'])} }>
             <Icon name='comment' />
             {commentsSize === undefined ? 0 : commentsSize } Comments
           </a>
+            <Comment.Group>
+            {this.state.comments.findIndex( value => value == article['_id']) >= 0 ? this.showComments(article.comments)  : null }
+            </Comment.Group>
         </Card.Content>
+
       </Card>
     }
 
@@ -49,8 +93,7 @@ class ShowAllPosts extends React.Component {
   render(){
     console.log('rendering');
     return (
-      <div >
-      All Posts
+      <div>
       <button onClick={this.fetchNew.bind(this)}>Fetch New Posts</button>
       {this.displayData()}
       </div>
