@@ -5,17 +5,18 @@ let validateData = (post) =>{
   if(post.title && post.body && post.authorName && post.authorId && post.likes && post.comments && post.tags && post.category){
     return true;
   } else {
-    return false
+    return false;
   }
 }
 
 const addPost = router.post('/post',function(request,response){
-  let postData = request.body.postData;
+  let postData = request.body.postData;       
   const db = request.app.locals.settings.db;
-  if(validateData(postData)) {
+  if(validateData(postData)){
     var myobj = postData;
-    db.collection("posts").insertOne(myobj, function(err, res) {
-      if (err) return response.json({status:404, error:err});
+    db.collection("posts").insertOne(myobj,function(err, res) {
+      if (err) 
+        return response.json({status:404, error:err});
       else {
         response.send({
           status:200,
