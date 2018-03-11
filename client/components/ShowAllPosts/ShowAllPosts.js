@@ -1,28 +1,57 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
+import {Card, Icon, Image  } from 'semantic-ui-react';
+import getNewPostsAction from './action';
+import './index.css';
 class ShowAllPosts extends React.Component {
 
-  getData = () => {
-    let obj =this.props.addPost();
-    for(var x in obj){
-      console.log(obj[x]);
+  articleCard = (article) => {
+    let commentsSize =0;
+    if(article.comments) {
+      commentsSize = article.comments;
+      commentsSize = commentsSize.length
     }
-  }
+      return  <Card className="article">
+
+        <Card.Content>
+        <Card.Header>
+          {article.title}
+        </Card.Header>
+          <Card.Meta>
+            <Image floated="left" size="mini" src={article.authorPic} />
+            {article.authorName}
+          </Card.Meta>
+        </Card.Content>
+        <Card.Content>
+        <Card.Description>
+          {article.body}
+        </Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+            <Icon name='like' />
+            {article.likes} Likes
+          <a>
+            <Icon name='comment' />
+            {commentsSize === undefined ? 0 : commentsSize } Comments
+          </a>
+        </Card.Content>
+      </Card>
+    }
 
   displayData = () => {
     return this.props.allPostsData.payload.map((value,index)=>{
-      return <li key={index}>{value.title}</li>
+      return this.articleCard(value);
     });
   }
-
+  fetchNew = (event)=>{
+    this.props.getNewPosts([{title:'dispatch working'}]);
+  }
   render(){
-    console.log(this.props.allPostsData);
-
+    console.log('rendering');
     return (
       <div >
       All Posts
-      {this.getData()}
+      <button onClick={this.fetchNew.bind(this)}>Fetch New Posts</button>
       {this.displayData()}
       </div>
     );
@@ -37,10 +66,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost : () => dispatch({
-      type : 'DESTROY_TODO',
-      payload:[{title:'name'}]
-    })
+    getNewPosts : (payload) => dispatch(getNewPostsAction(payload))
   }
 }
 

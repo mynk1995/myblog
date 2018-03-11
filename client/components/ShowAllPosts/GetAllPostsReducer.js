@@ -1,4 +1,10 @@
-export default function getAllPostsReducer(state={payload:[{title:"rahu rana javascript"}]},action){
+import values from '../../values.js';
+import axios from 'axios';
+export default  function getAllPostsReducer(state={status:values.PENDING,payload:[{title:"pending"}]},action){
   console.log('Reducer Called - '+action.type);
-  return state;
+  switch(action.type){
+    case values.getNewPosts :
+      return Object.assign({},state,{payload:action.payload});
+    default : return Object.assign({},state);
+  }
 }
