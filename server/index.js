@@ -6,7 +6,6 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import bodyParser from 'body-parser';
 import mongodb from 'mongodb';
 import config from '../configurations/config.js';
-
 import webpackConfig from '../webpack.config.dev.js';
 import route from './routes/index.js';
 
@@ -39,9 +38,6 @@ app.use(webpackHotMiddleware(compiler));
 app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname,'../public/index.html'));
 });
-
-
-
 app.listen(3333,()=>{
   console.log('Running Local Server at Port: ' + 3333);
 });
