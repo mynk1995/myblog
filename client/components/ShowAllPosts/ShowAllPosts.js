@@ -1,14 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Card, Icon, Image, Comment  } from 'semantic-ui-react';
+import {Card, Icon, Image, Comment, Form, Button, TextArea  } from 'semantic-ui-react';
 import getNewPostsAction from './action';
 import './index.css';
 class ShowAllPosts extends React.Component {
   constructor(){
     super();
     this.state = {
-      comments:[]
+      comments:[],
+      currentCommentData:''
     };
+  }
+
+  componentDidMount = () => {
+    this.fetchNew();
   }
 
   showComments = (comments) => {
@@ -43,6 +48,22 @@ class ShowAllPosts extends React.Component {
       }
   }
 
+  publishCommentData = (e) => {
+    this.setState({currentCommentData:e.target.value});
+  }
+
+  publishComment = (article,e) =>  {
+    if(e.key == 'Enter') {
+
+    }
+  }
+
+  showCommentArea = (article) => {
+    return <Form reply>
+        <Form.Field control={TextArea} className="commentTextArea" onChange={this.publishCommentData} onKeyPress={this.publishComment.bind(this,article)} label='Comment' placeholder='Make a comment here...' />
+    </Form>
+  }
+
   articleCard = (article) => {
     let commentsSize =0;
     if(article.comments) {
@@ -51,7 +72,7 @@ class ShowAllPosts extends React.Component {
     }
 
 
-      return  <Card className="article">
+      return  <Card className="article" id={article['_id']}>
 
         <Card.Content>
         <Card.Header>
@@ -76,6 +97,8 @@ class ShowAllPosts extends React.Component {
           </a>
             <Comment.Group>
             {this.state.comments.findIndex( value => value == article['_id']) >= 0 ? this.showComments(article.comments)  : null }
+            {this.state.comments.findIndex( value => value == article['_id']) >= 0 ? this.showCommentArea(article)  : null }
+
             </Comment.Group>
         </Card.Content>
 
@@ -94,7 +117,6 @@ class ShowAllPosts extends React.Component {
     console.log('rendering');
     return (
       <div>
-      <button onClick={this.fetchNew.bind(this)}>Fetch New Posts</button>
       {this.displayData()}
       </div>
     );
