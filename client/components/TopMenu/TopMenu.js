@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Input } from 'semantic-ui-react'
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import values from '../../values.js';
 import ProfileMenu from './ProfileMenu';
 import logOutAction from './logOutAction';

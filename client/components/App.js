@@ -24,7 +24,7 @@ class App extends React.Component {
       <div className="bgColorGreen">
       <TopMenu toggleForm={this.showForm} />
       {this.state.showLoginFormValue  == 1 ? <LoginSignUp /> : null }
-      <ShowAllPosts />
+      {this.props.children}
       </div>
     );
   }

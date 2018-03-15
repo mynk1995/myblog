@@ -11,6 +11,8 @@ let validateData = (post) =>{
 
 const addPost = router.post('/post',function(request,response){
   let postData = request.body.postData;
+  postData.createdAt = new Date();
+  postData.updatedAt = new Date();
   const db = request.app.locals.settings.db;
   if(validateData(postData)) {
     var myobj = postData;
