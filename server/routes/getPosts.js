@@ -3,7 +3,7 @@ const router = express.Router();
 const getPosts = router.get('/posts',function(request,response){
 	const db = request.app.locals.settings.db;
 	const posts = db.collection('posts');
-	posts.find().toArray((error,result)=>{
+	posts.find().sort({createdAt:-1}).toArray((error,result)=>{
 		if(error){
 			response.send({
 				status:403,
@@ -17,7 +17,7 @@ const getPosts = router.get('/posts',function(request,response){
 			});
 		}
 	})
-	
+
 });
 
 module.exports = getPosts;

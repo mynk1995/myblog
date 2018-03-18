@@ -10,12 +10,14 @@ let validateData = (post) =>{
 }
 
 const addPost = router.post('/post',function(request,response){
-  let postData = request.body.postData;       
+  let postData = request.body.postData;
+  postData.createdAt = new Date();
+  postData.updatedAt = new Date();
   const db = request.app.locals.settings.db;
   if(validateData(postData)){
     var myobj = postData;
     db.collection("posts").insertOne(myobj,function(err, res) {
-      if (err) 
+      if (err)
         return response.json({status:404, error:err});
       else {
         response.send({
